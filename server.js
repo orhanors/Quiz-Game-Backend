@@ -7,6 +7,10 @@ const server = express();
 dotenv.config();
 const port = process.env.PORT;
 
+//MIDDLEWARES
+server.use(express.json());
+//ROUTES
+
 server.listen(port, () => {
 	if (server.get("env") === "production")
 		console.log("Server is running on CLOUD on PORT:", port);
