@@ -53,7 +53,7 @@ exports.examPostController = async (req, res, next) => {
 				(question, index) =>
 					(question.providedAnswer = requestArray[index].answer)
 			);
-
+			console.log("foundexam", foundExam);
 			await writeEditedExam(foundExam);
 			res.status(201).json({ success: true, data: foundExam });
 		}

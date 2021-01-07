@@ -1,16 +1,21 @@
 const express = require("express");
+const { validationResult } = require("express-validator");
 const {
 	examPostController,
 	examStartController,
 	examGetController,
 } = require("../controllers/exam");
-const { examValidator, validatorResult } = require("../middlewares/validator");
+const {
+	examResultValidator,
+	validatorResult,
+	examValidator,
+} = require("../middlewares/validator");
 
 const router = express.Router();
 
 router.get("/:examId", examGetController);
 
-router.post("/start", examStartController);
+router.post("/start", examValidator, validatorResult, examStartController);
 
 //TODO  It should not be possible to answer the same question twice.
 router.post(

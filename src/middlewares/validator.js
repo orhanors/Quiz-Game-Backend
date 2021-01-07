@@ -1,21 +1,34 @@
 const { check, validationResult } = require("express-validator");
 
-exports.examValidator = [
-	check("question")
+exports.examResultValidator = [
+	check(".*.question")
 		.notEmpty()
+		.withMessage("Question field should not be empty")
 		.isNumeric()
-		.withMessage("Question field is required and should be number"),
-	check("answer")
+		.withMessage("Question field should be number"),
+	check(".*.answer")
 		.notEmpty()
-		.withMessage("Answer field is required and should be number")
+		.withMessage("Answer field is required")
+		.isIn([0, 1, 2, 3])
+		.withMessage("Answer field should be in range [0,3]")
 		.isNumeric(),
 ];
 
-/***
- * check('items').exists(),
-  check('items.*._id').exists()
-  check('items.*.item_type').isIn([1,2,3])
- */
+exports.examValidator = [
+	check("candidateName")
+		.exists()
+		.withMessage("Candidate name is required")
+		.notEmpty()
+		.withMessage("Candidate should not be empty")
+		.isString()
+		.withMessage("Name message should be text"),
+	check("name")
+		.exists()
+		.withMessage("Name is required")
+		.notEmpty()
+		.withMessage("Name should not be empty"),
+];
+
 exports.questionValidator = [
 	check("text")
 		.exists()
