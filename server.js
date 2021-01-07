@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const examRoute = require("./src/routes/examRoute");
+const questionRoute = require("./src/routes/questionRoute");
 
 //INITIAL SETUP
 const server = express();
@@ -13,6 +14,7 @@ server.use(express.json());
 
 //ROUTES
 server.use("/exams", examRoute);
+server.use("/questions", questionRoute);
 
 server.listen(port, () => {
 	if (server.get("env") === "production")

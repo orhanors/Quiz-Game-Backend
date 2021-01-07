@@ -1,6 +1,10 @@
-const { readDB } = require("./fileOperations");
+const { readDB, writeDB } = require("./fileOperations");
 const { join } = require("path");
+const { examGetController } = require("../controllers/exam");
+
 const questionPath = join(__dirname, "../models/question.json");
+
+const examFilePath = join(__dirname, "../models/exam.json");
 
 function shuffle(array) {
 	let newArray = [...array];
@@ -38,4 +42,53 @@ exports.calcTotalDuration = (questions) => {
 		totalDuration += question.duration;
 	}
 	return totalDuration;
+};
+
+exports.readExam = () => {
+	return readDB(examFilePath);
+};
+exports.writeExam = async (exam) => {
+	const allExams = await readDB(examFilePath);
+	allExams.push(exam);
+	await writeDB(examFilePath, allExams);
+};
+
+exports.findById = async (id) => {
+	const allExams = await readDB(examFilePath);
+	const foundExam = allExams.find((exam) => exam._id === id);
+	if (foundExam) {
+		return foundExam;
+	} else {
+		return false;
+	}
+};
+
+exports.writeEditedExam = async (exam) => {
+	const { _id } = exam;
+
+	const allExams = await readDB(examFilePath);
+	const foundExam = allExams.find((exam) => exam._id === _id);
+	foundExam.questions = exam.questions;
+
+	await writeDB(examFilePath, foundExam);
+};
+
+exports.calcTotalScore = (exam) => {
+	//for every question find the true answer index
+	//compare true answer index with providedAnwer index
+	// change the total score
+
+	let totalScore = 0;
+
+	for (let question of exam.questions) {
+		const trueIndex = question.answers.findIndex(
+			(answer) => answer.isCorrect === true
+		);
+
+		if (trueIndex === question?.providedAnswer) {
+			totalScore += 1;
+		}
+	}
+
+	return totalScore;
 };

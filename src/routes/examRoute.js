@@ -2,21 +2,20 @@ const express = require("express");
 const {
 	examPostController,
 	examStartController,
+	examGetController,
 } = require("../controllers/exam");
 const { examValidator, validatorResult } = require("../middlewares/validator");
 
 const router = express.Router();
 
+router.get("/:examId", examGetController);
+
 router.post("/start", examStartController);
 
-/**
- * Randomize array
- * Extract file from array
- */
+//TODO  It should not be possible to answer the same question twice.
 router.post(
 	"/:examId/answer",
-	examValidator,
-	validatorResult,
+
 	examPostController
 );
 
