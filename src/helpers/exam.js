@@ -1,6 +1,5 @@
 const { readDB, writeDB } = require("./fileOperations");
 const { join } = require("path");
-const { examGetController } = require("../controllers/exam");
 
 const questionPath = join(__dirname, "../models/question.json");
 
