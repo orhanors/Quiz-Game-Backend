@@ -1,5 +1,5 @@
 # Quiz Game Backend
-Backend operations for quiz game using express and local filesytem as database. Frontend implemantation can be found <a href="https://github.com/orhanors/Quiz-Game-Frontend">here</a>
+Backend operations for quiz game using express and local filesytem as database. Frontend implemantation can be found <a href="https://github.com/orhanors/Quiz-Game-Frontend">here </a>
 
 ### Features
 
